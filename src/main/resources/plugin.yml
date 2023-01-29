@@ -1,0 +1,4 @@
+name: SpawnerShutdown
+version: '${version}'
+main: me.defineoutside.spawnershutdown.SpawnerShutdown
+api-version: 1.18
