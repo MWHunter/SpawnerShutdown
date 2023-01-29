@@ -16,15 +16,11 @@ public final class SpawnerShutdown extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        for (String type : getConfig().getStringList("spawner-blacklist")) {
-            typesBlacklisted.add(EntityType.valueOf(type));
-        }
+        getConfig().getStringList("spawner-blacklist").forEach(type -> typesBlacklisted.add(EntityType.valueOf(type)));
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onPreSpawnEvent(PreSpawnerSpawnEvent event) {
-        if (typesBlacklisted.contains(event.getType())) {
-            event.setCancelled(true);
-        }
+        event.setCancelled(typesBlacklisted.contains(event.getType()));
     }
 }
